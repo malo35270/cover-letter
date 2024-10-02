@@ -1,9 +1,30 @@
 import argparse
 from docx import Document
 from datetime import date
-from docx2pdf import convert
+import sys
+
+docx_here = sys.platform in ["darwin", "win32"]
+
+if docx_here:
+    from docx2pdf import convert
+else:
+    import subprocess
 from python_docx_replace import docx_replace
 import os
+
+
+
+def generate_pdf(docx_here,doc_path, path):
+    if docx_here:
+        convert(doc_path, path)
+    else :
+        subprocess.call(['soffice',
+                    # '--headless',
+                    '--convert-to',
+                    'pdf',
+                    '--outdir',
+                    path,
+                    doc_path])
 
 def generate_cl(args):
     document = Document(f'source/cl-{args.lan}.docx')
@@ -23,8 +44,7 @@ def generate_cl(args):
     print(path)
     os.makedirs(path, exist_ok=True)
     document.save(f'{path}/cover-letter-Malo-Chauvel-{args.position}.docx')
-    convert(f'{path}/cover-letter-Malo-Chauvel-{args.position}.docx', f'{path}/cover-letter-Malo-Chauvel-{args.position}.pdf')
-
+    generate_pdf(docx_here,f'{path}/cover-letter-Malo-Chauvel-{args.position}.docx', f'{path}/cover-letter-Malo-Chauvel-{args.position}.pdf')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

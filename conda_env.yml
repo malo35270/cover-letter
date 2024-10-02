@@ -1,0 +1,11 @@
+name : cover_letter
+channels : 
+ - defaults
+dependencies :
+  - python = 3.12
+  - pip
+  - pip:
+    - docx2pdf
+    - python-docx
+    - python-docx-replace
+    - tqdm
