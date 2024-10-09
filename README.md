@@ -4,5 +4,5 @@ modify my cover letter
 
 example : 
 ```bash
-    python generate-cl.py -lan 'fr' -p 'Intitulé de stage' -r 'Monsieur X' -cn 'entreprise'
+    python generate-cl.py -lan 'fr' -p 'Intitulé de stage' -r 'Cher Monsieur X' -cn 'entreprise'
 ```
